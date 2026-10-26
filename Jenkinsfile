@@ -1,4 +1,3 @@
-```groovy
 pipeline {
     agent any
 
@@ -12,8 +11,7 @@ pipeline {
         stage('Test Application') {
             steps {
                 sh '''
-                    docker run --rm flask-cicd-app:latest \
-                    python -m unittest test_app.py
+                    docker run --rm flask-cicd-app:latest python -m unittest test_app.py
                 '''
             }
         }
@@ -22,11 +20,7 @@ pipeline {
             steps {
                 sh '''
                     docker rm -f flask-cicd-container || true
-
-                    docker run -d \
-                    --name flask-cicd-container \
-                    -p 5000:5000 \
-                    flask-cicd-app:latest
+                    docker run -d --name flask-cicd-container -p 5000:5000 flask-cicd-app:latest
                 '''
             }
         }
@@ -58,4 +52,3 @@ pipeline {
         }
     }
 }
-```
